@@ -151,3 +151,4 @@ yatube_api/posts/static/
 media/
 
 postman_collection/
+/yatube_api/api/migrations/

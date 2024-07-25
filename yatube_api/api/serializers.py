@@ -10,8 +10,14 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('username', 'password')
 
 
-class PostSerializer(serializers.ModelSerializer):
-    author = serializers.StringRelatedField(read_only=True)
+class AuthorMixin(serializers.ModelSerializer):
+    author = serializers.SlugRelatedField(
+        read_only=True,
+        slug_field='username',
+    )
+
+
+class PostSerializer(AuthorMixin, serializers.ModelSerializer):
 
     class Meta:
         model = Post
@@ -25,8 +31,7 @@ class GroupSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class CommentSerializer(serializers.ModelSerializer):
-    author = serializers.StringRelatedField(read_only=True)
+class CommentSerializer(AuthorMixin, serializers.ModelSerializer):
 
     class Meta:
         model = Comment
