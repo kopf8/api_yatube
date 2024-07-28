@@ -38,13 +38,10 @@ class CommentViewSet(viewsets.ModelViewSet):
                         post=self.get_comment_post())
 
     def perform_update(self, serializer):
-        if serializer.instance.author != self.request.user:
-            raise PermissionDenied(("You don't have permission to"
-                                   " update this content."))
         super().perform_update(serializer)
 
     def perform_destroy(self, instance):
         if instance.author != self.request.user:
-            raise PermissionDenied(("You don't have permission to"
-                                   " delete this content."))
+            raise PermissionDenied(('You do not have permission to'
+                                   ' delete this content.'))
         super().perform_destroy(instance)
